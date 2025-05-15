@@ -40,17 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3Dモデルの切り替え用の配列
     const models = [
         { type: 'box', color: 'red', position: '0 0.5 0' },
-        { type: 'sphere', color: 'blue', position: '0 0.5 0' },
-        { type: 'cylinder', color: 'green', position: '0 0.5 0' },
-        { type: 'cone', color: 'yellow', position: '0 0.5 0' },
-        // glTFモデルを追加
-        { 
-            type: 'entity', 
-            position: '0 0 0',
-            scale: '0.5 0.5 0.5',
-            rotation: '0 0 0',
-            model: 'models/model.gltf' 
-        },
         // GLBモデルを追加
         { 
             type: 'entity', 
