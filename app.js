@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             position: '0 0 0',
             scale: '0.5 0.5 0.5',
             rotation: '0 0 0',
-            model: 'models/model.glb' 
+            model: 'models/BoushiAR.glb' 
         }
     ];
     let currentModelIndex = 0;
