@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#317EFB"/>
+    <!-- キャッシュを無効化するためのメタタグ -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>3D CAD AR アプリケーション</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css?v=20250515">
+    <link rel="manifest" href="manifest.json?v=20250515">
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
@@ -45,13 +49,35 @@
         <button id="toggle-model">モデル切替</button>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=20250515"></script>
     <script>
-        // サービスワーカーの登録
+        // サービスワーカーの登録と更新
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('Service Worker registered', reg))
+                // 既存のサービスワーカーを強制的に更新
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for(let registration of registrations) {
+                        registration.update();
+                    }
+                });
+                
+                navigator.serviceWorker.register('sw.js?v=20250515')
+                    .then(reg => {
+                        console.log('Service Worker registered', reg);
+                        // サービスワーカーの更新をチェック
+                        reg.onupdatefound = function() {
+                            const installingWorker = reg.installing;
+                            installingWorker.onstatechange = function() {
+                                if (installingWorker.state === 'installed') {
+                                    if (navigator.serviceWorker.controller) {
+                                        console.log('新しいサービスワーカーがインストールされました');
+                                        // 新しいバージョンがインストールされたらページをリロード
+                                        window.location.reload();
+                                    }
+                                }
+                            };
+                        }
+                    })
                     .catch(err => console.log('Service Worker registration failed', err));
             });
         }
