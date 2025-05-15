@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // GLBモデルを追加
         { 
             type: 'entity', 
-            position: '0 0 5',
-            scale: '0.25 0.25 0.25',
+            position: '0 1 0',
+            scale: '0.3 0.3 0.3',
             rotation: '0 0 0',
             model: 'models/BoushiAR.glb' 
         }
