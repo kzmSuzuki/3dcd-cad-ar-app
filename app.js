@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const instructions = document.getElementById('instructions');
     const closeInstructionsBtn = document.getElementById('close-instructions');
     const toggleModelBtn = document.getElementById('toggle-model');
-    const takePhotoBtn = document.getElementById('take-photo');
     
     // ARシーンが読み込まれたらローディング画面を非表示
     const scene = document.querySelector('a-scene');
@@ -89,53 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
             newEntity.setAttribute('position', model.position);
             newEntity.setAttribute('material', `color: ${model.color}`);
             marker.appendChild(newEntity);
-        }
-    });
-
-    // 写真撮影ボタンの処理
-    takePhotoBtn.addEventListener('click', function() {
-        // html2canvasを使用してシーン全体をキャプチャ
-        const sceneEl = document.querySelector('a-scene');
-        
-        // AR.jsのビデオ要素を取得
-        const video = document.querySelector('.a-canvas');
-        
-        if (video) {
-            try {
-                // 画面全体のスクリーンショットを撮影
-                html2canvas(document.body).then(function(canvas) {
-                    // キャンバスから画像データを取得
-                    const dataURL = canvas.toDataURL('image/png');
-                    
-                    // ダウンロードリンクを作成
-                    const link = document.createElement('a');
-                    link.href = dataURL;
-                    link.download = 'ar-screenshot.png';
-                    link.click();
-                    
-                    // フィードバックを表示
-                    const feedback = document.createElement('div');
-                    feedback.textContent = '写真を保存しました！';
-                    feedback.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); ' +
-                                            'background-color: rgba(0,0,0,0.7); color: white; padding: 15px; ' +
-                                            'border-radius: 10px; z-index: 1000;';
-                    document.body.appendChild(feedback);
-                    
-                    // フィードバックを2秒後に消す
-                    setTimeout(() => {
-                        document.body.removeChild(feedback);
-                    }, 2000);
-                }).catch(function(error) {
-                    console.error("スクリーンショットの取得に失敗しました:", error);
-                    alert("写真の撮影に失敗しました。");
-                });
-            } catch (error) {
-                console.error("スクリーンショットエラー:", error);
-                alert("写真の撮影に失敗しました。ブラウザの設定を確認してください。");
-            }
-        } else {
-            console.error("ARキャンバスが見つかりません");
-            alert("ARビューが読み込まれていません。少々お待ちください。");
         }
     });
 
