@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#317EFB"/>
+    <title>3D CAD AR アプリケーション</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loading-container">
+            <h1>3D CAD AR アプリ</h1>
+            <p>カメラへのアクセスを許可してください。</p>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <div id="instructions">
+        <p>Hiroマーカーにカメラを向けてください</p>
+        <button id="close-instructions">閉じる</button>
+    </div>
+
+    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+             renderer="logarithmicDepthBuffer: true; antialias: true; precision: mediump;"
+             vr-mode-ui="enabled: false">
+        <!-- カメラ -->
+        <a-entity camera></a-entity>
+        
+        <!-- デフォルトHiroマーカーに3Dモデルを設定 -->
+        <a-marker preset="hiro">
+            <!-- デフォルトの3Dモデル（赤い箱） -->
+            <a-box position="0 0.5 0" material="color: red;"></a-box>
+        </a-marker>
+    </a-scene>
+
+    <div id="ui-controls">
+        <button id="toggle-model">モデル切替</button>
+        <button id="take-photo">写真撮影</button>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // サービスワーカーの登録
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered', reg))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
+</body>
+</html>
