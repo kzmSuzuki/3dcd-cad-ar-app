@@ -43,7 +43,23 @@ document.addEventListener('DOMContentLoaded', function() {
         { type: 'box', color: 'red', position: '0 0.5 0' },
         { type: 'sphere', color: 'blue', position: '0 0.5 0' },
         { type: 'cylinder', color: 'green', position: '0 0.5 0' },
-        { type: 'cone', color: 'yellow', position: '0 0.5 0' }
+        { type: 'cone', color: 'yellow', position: '0 0.5 0' },
+        // glTFモデルを追加
+        { 
+            type: 'entity', 
+            position: '0 0 0',
+            scale: '0.5 0.5 0.5',
+            rotation: '0 0 0',
+            model: 'models/model.gltf' 
+        },
+        // GLBモデルを追加
+        { 
+            type: 'entity', 
+            position: '0 0 0',
+            scale: '0.5 0.5 0.5',
+            rotation: '0 0 0',
+            model: 'models/model.glb' 
+        }
     ];
     let currentModelIndex = 0;
 
@@ -59,10 +75,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // 新しいモデルを作成して追加
-        const newEntity = document.createElement(`a-${model.type}`);
-        newEntity.setAttribute('position', model.position);
-        newEntity.setAttribute('material', `color: ${model.color}`);
-        marker.appendChild(newEntity);
+        if (model.model) {
+            // glTFまたはGLBモデルの場合
+            const newEntity = document.createElement('a-entity');
+            newEntity.setAttribute('position', model.position);
+            newEntity.setAttribute('scale', model.scale);
+            newEntity.setAttribute('rotation', model.rotation);
+            newEntity.setAttribute('gltf-model', model.model);
+            marker.appendChild(newEntity);
+        } else {
+            // プリミティブの場合
+            const newEntity = document.createElement(`a-${model.type}`);
+            newEntity.setAttribute('position', model.position);
+            newEntity.setAttribute('material', `color: ${model.color}`);
+            marker.appendChild(newEntity);
+        }
     });
 
     // 写真撮影ボタンの処理

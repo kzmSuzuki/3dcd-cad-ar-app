@@ -1,11 +1,11 @@
 // サービスワーカーファイル
 const CACHE_NAME = 'ar-app-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.json',
+  '/3dcd-cad-ar-app/',
+  '/3dcd-cad-ar-app/index.html',
+  '/3dcd-cad-ar-app/styles.css',
+  '/3dcd-cad-ar-app/app.js',
+  '/3dcd-cad-ar-app/manifest.json',
   'https://aframe.io/releases/1.4.0/aframe.min.js',
   'https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'
 ];
