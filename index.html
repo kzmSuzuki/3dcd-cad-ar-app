@@ -24,7 +24,7 @@
     </div>
 
     <div id="instructions">
-        <p>Hiroマーカーにカメラを向けてください</p>
+        <p>マーカーにカメラを向けてください</p>
         <button id="close-instructions">閉じる</button>
     </div>
 
@@ -34,11 +34,6 @@
         <!-- カメラ -->
         <a-entity camera></a-entity>
         
-        <!-- デフォルトHiroマーカーに3Dモデルを設定 -->
-        <a-marker preset="hiro">
-            <!-- デフォルトの3Dモデル（赤い箱） -->
-            <a-box position="0 0.5 0" material="color: red;"></a-box>
-        </a-marker>
         <a-marker type="pattern" url="./maker/Kitty.patt">
             <!-- デフォルトの3Dモデル（赤い箱） -->
             <a-box position="0 0.5 0" material="color: red;"></a-box>
